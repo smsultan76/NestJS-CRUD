@@ -13,4 +13,9 @@ export class AppController {
   home(): string {
     return '<h2> Welcome to the Home Page!</h2>';
   }
+
+  @Get('about')
+  about(): string {
+    return this.appService.about();
+  }
 }
