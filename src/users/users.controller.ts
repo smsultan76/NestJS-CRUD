@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -38,6 +38,19 @@ export class UsersController {
             return {
                 message : 'User updated successfully!',
                 user : this.users,
+            }
+        }
+        return { message : 'User not found!' };
+    }
+
+    @Delete(':id')
+    deleteUser(@Param('id') id: number) {
+        const user = this.users.find(user => user.id === Number(id));
+        if(user) {
+            this.users = this.users.filter(user => user.id !== Number(id));
+            return {
+                message : 'User deleted successfully!',
+                users : this.users,
             }
         }
         return { message : 'User not found!' };
