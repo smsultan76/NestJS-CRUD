@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -16,5 +16,17 @@ export class UsersController {
     @Get(':id')
     getUserById(@Param('id') id: number){
         return this.users.find(user => user.id === Number(id));
+    }
+
+    @Post()
+    createUser(@Body() body: { name: string }) {
+        const newUser = {
+            id: this.users.length + 1,
+            name: body.name,
+        }
+        this.users.push(newUser);
+        return { message: 'User created successfully!' ,
+                 user : newUser
+        };
     }
 }
