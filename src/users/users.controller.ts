@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -28,5 +28,18 @@ export class UsersController {
         return { message: 'User created successfully!' ,
                  user : newUser
         };
+    }
+
+    @Put(':id')
+    updateUser(@Param('id') id: number, @Body() body: { name : string }) {
+        const user = this.users.find(user => user.id === Number(id));
+        if (user) {
+            user.name = body.name;
+            return {
+                message : 'User updated successfully!',
+                user : this.users,
+            }
+        }
+        return { message : 'User not found!' };
     }
 }
