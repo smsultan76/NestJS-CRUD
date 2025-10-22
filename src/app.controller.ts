@@ -9,4 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get('home')
+  home(): string {
+    return '<h2> Welcome to the Home Page!</h2>';
+  }
 }
