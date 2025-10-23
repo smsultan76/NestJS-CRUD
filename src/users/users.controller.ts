@@ -1,23 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     private users = [
-        { id: 1, name: 'Alice Service' },
-        { id: 2, name: 'Bob Service' },
-        { id: 3, name: 'SM Service' },
+        { id: 1, name: 'Alice' },
+        { id: 2, name: 'Bob' },
+        { id: 3, name: 'SM' },
     ]
     @Get()
     getAllUsers(@Query('role') role?: 'Intern' | 'Engineer' | 'Admin' ) {
-        // return this.users;
         return this.usersService.getAllUsers();
     }
 
     @Get(':id')
-    getUserById(@Param('id') id: number){
-        return this.users.find(user => user.id === Number(id));
+    getUserById(@Param('id', ParseIntPipe) id: number){
+        return this.usersService.getUserById(id);
     }
 
     @Post()
