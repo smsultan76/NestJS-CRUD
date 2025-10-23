@@ -6,9 +6,10 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { EmployeesModule } from './employees/employees.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [UsersModule, DatabaseModule, EmployeesModule],
+  imports: [UsersModule, DatabaseModule, EmployeesModule, PrismaModule],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
 })
