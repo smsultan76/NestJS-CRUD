@@ -9,13 +9,15 @@ import { EmployeesModule } from './employees/employees.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [UsersModule, DatabaseModule, EmployeesModule, PrismaModule,
     ThrottlerModule.forRoot([{
       ttl: 6000,
       limit: 3,
-    }])
+    }]),
+    ProfileModule
   ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService,
