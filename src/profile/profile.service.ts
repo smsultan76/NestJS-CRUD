@@ -9,4 +9,12 @@ export class ProfileService {
     create(data: CreateProfileDto){
         return this.prisma.profile.create({ data });
     }
+
+
+    findAll(){
+        return this.prisma.profile.findMany();
+    }
+    findOne(id: number){
+        return this.prisma.profile.findUnique({ where: { id } });
+    }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateProfileDto } from './dto/create-profile.dto';
@@ -26,5 +26,15 @@ export class ProfileController {
     create(@Body() dto: CreateProfileDto, @UploadedFile() file: Express.Multer.File) {
         if (file) dto.profile_url = `/uploads/profile_pics/${file.filename}`;
         return this.profileService.create(dto);
+    }
+
+    @Get()
+    findAll(){
+        return this.profileService.findAll();
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: number) {
+        return this.profileService.findOne(id);
     }
 }
