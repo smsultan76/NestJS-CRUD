@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Controller('profile')
 export class ProfileController {
@@ -34,7 +35,17 @@ export class ProfileController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.profileService.findOne(id);
+    findOne(@Param('id') id: string) {
+        return this.profileService.findOne(+id);
+    }
+
+    @Patch(':id')
+    update(@Param('id') id: number, @Body() dto: UpdateProfileDto){
+        return this.profileService.update(+id, dto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: number ){
+        return this.profileService.remove(id);
     }
 }
