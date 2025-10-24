@@ -1,9 +1,11 @@
+import { Transform } from 'class-transformer';
 import { IsString, IsEmail, IsInt, IsBoolean, IsDateString, IsOptional } from 'class-validator';
 
 export class CreateProfileDto {
     @IsString()
     name: string;
 
+    @Transform(({ value }) => value.trim())
     @IsEmail()
     email: string;
 
